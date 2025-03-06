@@ -3,21 +3,27 @@
 #We will be extracting link that will be fed to another program which can extract content of the article using newspaper3k.
 import requests as rq
 
-url = "https://newsapi.org/v2/everything?q=politics&pageSize=5&sources=cnn&apiKey=807a2ad7b25d4fa79925a813275d6af0"
+url = "https://newsapi.org/v2/everything"
 
-# parms = {
-#     'q':'politics',
-#     'country':'us',
-#     'pageSize': 5,
-#     'apiKey': '807a2ad7b25d4fa79925a813275d6af0',
+# Define parameters properly
+params = {
+    'q': 'politics',
+    'sources': 'cnn',  # 'sources' cannot be used with 'country' in NewsAPI
+    'pageSize': 5,
+    'apiKey': '807a2ad7b25d4fa79925a813275d6af0',  # Ensure API key is valid
+}
 
-# }
+# Make the request with params
+response = rq.get(url, params=params)
 
-response = rq.get(url)
-
+# Convert response to JSON
 data = response.json()
 
-for articles in data['articles']:
-    print(articles['content'])
-    print(articles['url'])
-    print("----------------------------------------------------------------")
+# Check if the response contains articles
+if 'articles' in data:
+    for article in data['articles']:
+        print(article['content'])
+        print(article['url'])
+        print("----------------------------------------------------------------")
+else:
+    print("Error:", data.get('message', 'Unknown error'))
