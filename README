@@ -2,3 +2,8 @@ This program will use
 Python
 NEWSAPI
 Library like request, beautifulSOup, textblob, newspaper3k etc.
+
+STEP1;
+get alot of links from the newsAPI
+get the content of the file
+perform sentimental analysis
